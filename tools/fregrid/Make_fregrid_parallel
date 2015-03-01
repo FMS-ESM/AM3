@@ -1,0 +1,55 @@
+#
+CFLAGS = -O3 -I${FGDIR} -I${NETCDFPATH}/include
+CFLAGS_O2 = -O2 -I${FGDIR} -I${NETCDFPATH}/include
+LDFLAGS =  ${NETCDFPATH}/lib/libnetcdf.a
+DEFFLAG = -Duse_netCDF -Duse_libMPI
+LNFLAGS = -v
+CC      = cc
+
+OBJS = mosaic_util.o gradient_c2l.o create_xgrid.o interp.o read_mosaic.o mpp.o mpp_domain.o mpp_io.o tool_util.o \
+       conserve_interp.o bilinear_interp.o fregrid_util.o fregrid.o
+
+HEADERS = ${FGDIR}/mpp.h  ${FGDIR}/mpp_domain.h ${FGDIR}/mpp_io.h ${FGDIR}/mosaic_util.h ${FGDIR}/interp.h ${FGDIR}/create_xgrid.h
+fregrid_parallel: $(OBJS)
+	$(CC) $(LNFLAGS) -o $@ $(LDFLAGS) $(OBJS)
+
+fregrid.o: ${FGDIR}/fregrid.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/fregrid.c 
+
+fregrid_util.o: ${FGDIR}/fregrid_util.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/fregrid_util.c 
+
+conserve_interp.o: ${FGDIR}/conserve_interp.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/conserve_interp.c
+
+bilinear_interp.o: ${FGDIR}/bilinear_interp.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/bilinear_interp.c
+
+mosaic_util.o: ${FGDIR}/mosaic_util.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/mosaic_util.c
+
+gradient_c2l.o: ${FGDIR}/gradient_c2l.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/gradient_c2l.c
+
+create_xgrid.o: ${FGDIR}/create_xgrid.c $(HEADERS)
+	$(CC) $(CFLAGS_O2) -c ${FGDIR}/create_xgrid.c 
+
+interp.o: ${FGDIR}/interp.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/interp.c 
+
+read_mosaic.o: ${FGDIR}/read_mosaic.c $(HEADERS)
+	$(CC) $(DEFFLAG) $(CFLAGS) -c ${FGDIR}/read_mosaic.c 
+
+mpp.o: ${FGDIR}/mpp.c $(HEADERS)
+	$(CC) $(DEFFLAG) $(CFLAGS) -c ${FGDIR}/mpp.c 
+
+mpp_domain.o: ${FGDIR}/mpp_domain.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/mpp_domain.c 
+
+mpp_io.o: ${FGDIR}/mpp_io.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/mpp_io.c
+
+tool_util.o: ${FGDIR}/tool_util.c $(HEADERS)
+	$(CC) $(CFLAGS) -c ${FGDIR}/tool_util.c
+
+

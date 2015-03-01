@@ -1,0 +1,4 @@
+"ICE", "sic_obs", "ice", "INPUT/hadisst_ice.data.nc", "bilinear", 0.01
+"ICE", "sit_obs", "",    "INPUT/hadisst_ice.data.nc", "none",     2.0
+"ICE", "sst_obs", "sst", "INPUT/hadisst_sst.data.nc", "bilinear", 1.0
+"LND", "phot_co2","co2", "INPUT/co2_data.nc",         "bilinear", 1.e-6

@@ -1,0 +1,34 @@
+
+Where to start
+~~~~~~~~~~~~~~
+See the "doc" directory, where you will find
+a "quickstart" guide for the FMS AM3 model.
+
+
+Summary of directory contents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bin/
+     -- mkmf script for creating Makefiles
+     -- template files for the mkmf script
+     -- list_paths generates a list of source files using find
+     -- time_stamp.csh used by run script
+
+doc/ 
+     -- quickstart guide
+
+exp/
+     -- model input files for the AM3 experiment, such as:
+           namelists, diagnostics tables, field tables.
+     -- compile script. (uses mkmf)
+     -- list of source code. (used by mkmf)
+     -- run script for running the model.
+
+postprocessing/
+     -- source code for processing model output.
+
+src/   
+     -- source code for the AM3 model
+
+tools/
+    -- source code for interpolation of model output
+       to a lat-lon grid.
